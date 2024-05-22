@@ -1,28 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 15:38:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/22 12:23:59 by helarras         ###   ########.fr       */
+/*   Created: 2023/12/29 22:05:00 by helarras          #+#    #+#             */
+/*   Updated: 2023/12/30 11:04:02 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+void	ft_putstr_fd(char *s, int fd)
+{
+	size_t	i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-size_t	is_exists(char *str, char c);
-char	*sclear(char **s);
-char	*strcombine(char *s1, char *s2);
-
-#endif
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+		write(fd, s + (i++), 1);
+}

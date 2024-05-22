@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 15:38:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/22 12:23:59 by helarras         ###   ########.fr       */
+/*   Created: 2023/12/11 22:38:09 by helarras          #+#    #+#             */
+/*   Updated: 2023/12/17 13:25:24 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	char	*cdest;
+	char	*csrc;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-size_t	is_exists(char *str, char c);
-char	*sclear(char **s);
-char	*strcombine(char *s1, char *s2);
-
-#endif
+	cdest = (char *)dst;
+	csrc = (char *)src;
+	if (cdest > csrc)
+	{
+		while (len-- > 0)
+			cdest[len] = csrc[len];
+	}
+	else
+		ft_memcpy(dst, src, len);
+	return (dst);
+}

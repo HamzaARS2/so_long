@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 15:38:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/22 12:23:59 by helarras         ###   ########.fr       */
+/*   Created: 2023/12/11 22:29:17 by helarras          #+#    #+#             */
+/*   Updated: 2023/12/26 16:38:04 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_strrchr(const char *s, int c)
+{
+	int	i;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-size_t	is_exists(char *str, char c);
-char	*sclear(char **s);
-char	*strcombine(char *s1, char *s2);
-
-#endif
+	i = ft_strlen(s);
+	while (i >= 0)
+	{
+		if ((char)c == s[i])
+			return ((char *)s + i);
+		i--;
+	}
+	return (0);
+}

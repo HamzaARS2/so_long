@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 15:38:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/22 12:23:59 by helarras         ###   ########.fr       */
+/*   Created: 2023/12/12 12:33:06 by helarras          #+#    #+#             */
+/*   Updated: 2024/01/01 22:15:07 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_strdup(const char *s1)
+{
+	size_t	i;
+	size_t	s1_bytes;
+	char	*dest;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-size_t	is_exists(char *str, char c);
-char	*sclear(char **s);
-char	*strcombine(char *s1, char *s2);
-
-#endif
+	i = 0;
+	s1_bytes = ft_strlen(s1) + 1;
+	dest = (char *)malloc(s1_bytes * sizeof(char));
+	if (!dest)
+		return (0);
+	ft_strlcpy(dest, s1, s1_bytes);
+	return (dest);
+}

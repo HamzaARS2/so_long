@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 15:38:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/22 12:23:59 by helarras         ###   ########.fr       */
+/*   Created: 2024/01/09 14:10:44 by helarras          #+#    #+#             */
+/*   Updated: 2024/01/09 21:41:28 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
+# include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-size_t	is_exists(char *str, char c);
-char	*sclear(char **s);
-char	*strcombine(char *s1, char *s2);
-
+int		ft_printf(const char *str, ...);
+size_t	writestr(char *str);
+size_t	writechar(char c);
+size_t	writei_base(int number, char *base, unsigned int nbase);
+size_t	writeul_base(unsigned long number, char *base, unsigned int nbase);
 #endif

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   writei_base.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/15 15:38:02 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/22 12:23:59 by helarras         ###   ########.fr       */
+/*   Created: 2024/01/09 14:04:07 by helarras          #+#    #+#             */
+/*   Updated: 2024/01/09 16:29:36 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "ft_printf.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+size_t	writei_base(int number, char *base, unsigned int nbase)
+{
+	long	nbr;
+	size_t	ccount;
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
-# endif
-
-char	*get_next_line(int fd);
-size_t	is_exists(char *str, char c);
-char	*sclear(char **s);
-char	*strcombine(char *s1, char *s2);
-
-#endif
+	nbr = number;
+	ccount = 0;
+	if (nbr < 0)
+	{
+		ccount += write(1, "-", 1);
+		nbr = -nbr;
+	}
+	if (nbr >= nbase)
+		ccount += writeul_base(nbr / nbase, base, nbase);
+	return (write(1, base + (nbr % nbase), 1) + ccount);
+}
