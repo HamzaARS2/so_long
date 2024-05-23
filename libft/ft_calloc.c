@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/12 11:57:17 by helarras          #+#    #+#             */
-/*   Updated: 2023/12/29 22:14:23 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/23 16:05:54 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	i;
 	size_t	bytes;
 	char	*ptr;
 
-	i = 0;
 	bytes = count * size;
 	if (size && count != bytes / size)
 		return (0);

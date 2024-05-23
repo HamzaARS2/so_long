@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:07:11 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/23 20:41:28 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:44:03 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/Users/helarras/MLX42/include/MLX42/MLX42.h"
+# include "/home/klock/MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
@@ -22,8 +22,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define WIDTH 1088
-# define HEIGHT 192
+# define TILE_SIZE 32
 # define GAME_NAME "Game of the year"
 
 typedef enum e_game_state
@@ -46,24 +45,28 @@ typedef struct s_player {
 
 typedef struct s_update {
 	mlx_t *mlx;
-	t_player *player;
-	mlx_image_t *bg;
-	
+	t_player *player;	
 } t_update;
 
+typedef struct s_map {
+	char	**grid;
+	size_t	width;
+	size_t	height;
+} t_map;
 
 mlx_image_t   *load_img_texture(mlx_t *mlx,char *file_path);
 // map_loader
-void    render_map(mlx_t *mlx, char **map);
+void    render_map(mlx_t *mlx, t_map *map);
 
 t_list  *read_data(char *file_path);
 // comp_checker
 int is_exit_exists(t_list *map_list);
 int is_player_exists(t_list *map_list);
 int is_collectibles_exists(t_list *map_list);
-//map_checker
+//map_handler
 int check_components(t_list *map_list);
 int check_map(t_list *map_list);
+t_map   *get_map(char *file_path);
 // is_walled
 int check_wall(char *wall, int flag);
 int is_walled(t_list *map_list);

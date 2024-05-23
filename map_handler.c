@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_checker.c                                      :+:      :+:    :+:   */
+/*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:10:36 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/23 11:52:51 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/23 17:24:40 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,75 @@ int check_map(t_list *map_list)
         return (0);
     return (check_components(map_list));
 }
+
+int    create_map(t_map *map, t_list *data)
+{
+    size_t  i;
+    size_t  data_size;
+    t_list  *current;
+
+    i = 0;
+    data_size = ft_lstsize(data);
+    map->grid = malloc((data_size + 1) * sizeof(char *));
+    if (!map->grid)
+        return 0;
+    current = data;
+    while (current)
+    {
+        map->grid[i] = current->content;
+        current = current->next;
+        i++;
+    }
+    map->grid[i] = 0;
+    map->width = (ft_strlen(map->grid[0]) - 1) * TILE_SIZE;
+    map->height = data_size * TILE_SIZE;
+    return (1);
+}
+
+t_map   *get_map(char *file_path)
+{
+    t_list  *data;
+    t_map   *map;
+    size_t  data_size;
+
+    map = malloc(sizeof(t_map));
+    if (!map)
+        return (NULL);
+    data = read_data(file_path);
+    if (!data)
+    {
+        free(map);
+        return (NULL);
+    }
+    if (!check_map(data))
+        return (NULL);
+    if (!create_map(map, data))
+        return (NULL);
+    return (map);
+}
+
+
+// char    **get_map(char *file_path)
+// {
+//     t_list  *current;
+//     char    **map;
+//     size_t  map_size;
+//     size_t  i;
+
+//     current = read_data(file_path);
+//     map_size = ft_lstsize(current);
+//     if(!current)
+//         return (0);
+//     map = malloc((map_size + 1) * sizeof(char *));
+//     if (!map)
+//         return (0);
+//     i = 0;
+//     while (current)
+//     {
+//         map[i] = current->content;
+//         current = current->next;
+//         i++;
+//     }
+//     map[i] = 0;
+//     return (map);
+// }
