@@ -6,11 +6,24 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:34:42 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/22 18:51:09 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:40:07 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int comp_count(char *row, char comp)
+{
+    int i;
+    int count;
+
+    i = 0;
+    count = 0;
+    while (row[i])
+        if (row[i++] == comp)
+            count++;
+    return (count);
+}
 
 int is_exit_exists(t_list *map_list)
 {
@@ -23,13 +36,14 @@ int is_exit_exists(t_list *map_list)
     current = map_list;
     while (current)
     {
-        if (ft_strchr(current->content, 'E'))
-            found++;
+        found += comp_count(current->content, 'E');
         current = current->next;
     }
     if (found == 1)
         return (1);
-    return (0);
+    else if (found > 1)
+        return ('M' + 'E');
+    return ('E');
 }
 
 int is_player_exists(t_list *map_list)
@@ -43,13 +57,14 @@ int is_player_exists(t_list *map_list)
     current = map_list;
     while (current)
     {
-        if (ft_strchr(current->content, 'P'))
-            found++;
+        found += comp_count(current->content, 'P');
         current = current->next;
     }
     if (found == 1)
         return (1);
-    return (0);
+    else if (found > 1)
+        return ('M' + 'P');
+    return ('P');
 }
 
 int is_collectibles_exists(t_list *map_list)
@@ -69,5 +84,5 @@ int is_collectibles_exists(t_list *map_list)
     }
     if (found > 0)
         return (1);
-    return (0);
+    return ('C');
 }

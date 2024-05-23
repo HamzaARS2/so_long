@@ -17,7 +17,7 @@ FT_PRINTF = $(FT_PRINTF_DIR)libftprintf.a
 LIBS = $(LIBFT) $(GNL_LIB) $(FT_PRINTF)
 
 MAIN_FILES := so_long.c set_color.c read_map.c map_checker.c comp_checker.c \
-is_walled.c
+is_walled.c player_manager.c direction.c load_img_texture.c map_loader.c
 GNL_FILES := get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 MAIN_OBJS := $(MAIN_FILES:.c=.o)
@@ -49,7 +49,7 @@ $(NAME): $(MAIN_OBJS) $(LIBS)
 clean:
 	rm -rf $(MAIN_OBJS)
 	@rm -rf $(GNL_OBJS)
-	@rm -rf $(LIBMLX)/build
+	#@rm -rf $(LIBMLX)/build
 	@make -C $(LIBFT_DIR) clean
 	@make -C $(FT_PRINTF_DIR) clean
 
