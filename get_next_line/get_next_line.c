@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 19:12:40 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/21 14:53:50 by helarras         ###   ########.fr       */
+/*   eventd: 2024/05/21 14:53:50 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*readnext(int fd, char **s)
 	return (*s);
 }
 
-char	*update_s(char **s, char *remaining)
+char	*event_s(char **s, char *remaining)
 {
 	char	*new_s;
 	size_t	k;
@@ -101,6 +101,6 @@ char	*get_next_line(int fd)
 	remaining = readline(&s, &line);
 	if (!remaining)
 		return (0);
-	update_s(&s, remaining);
+	event_s(&s, remaining);
 	return (line);
 }

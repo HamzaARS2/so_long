@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 16:10:36 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/23 17:24:40 by klock            ###   ########.fr       */
+/*   eventd: 2024/05/24 17:46:34 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static int    handle_error(unsigned char error)
-{
-    if (error == 'E')
-        ft_printf("Error\n%s\n", "Exit not found!");
-    else if (error == 'M' + 'E')
-        ft_printf("Error\n%s\n", "Multiple exits found!");
-    else if (error == 'P')
-        ft_printf("Error\n%s\n", "Player not found!");
-    else if (error == 'M' + 'P')
-        ft_printf("Error\n%s\n", "Multiple players found!");
-    else if (error == 'C')
-        ft_printf("Error\n%s\n", "Collectibles not found!");
-    else if (error == 'R')
-        ft_printf("Error\n%s\n", "The map is not rectangular");
-    else if (error == 'W')
-        ft_printf("Error\n%s\n", "The map is not walled!");
-    else
-        return (1);
-    return (0);
-}
 
 static int is_rectangular(t_list *map_list)
 {
@@ -130,28 +109,10 @@ t_map   *get_map(char *file_path)
     return (map);
 }
 
+int is_comps_reachable(char **map)
+{
+    t_point pp;
 
-// char    **get_map(char *file_path)
-// {
-//     t_list  *current;
-//     char    **map;
-//     size_t  map_size;
-//     size_t  i;
-
-//     current = read_data(file_path);
-//     map_size = ft_lstsize(current);
-//     if(!current)
-//         return (0);
-//     map = malloc((map_size + 1) * sizeof(char *));
-//     if (!map)
-//         return (0);
-//     i = 0;
-//     while (current)
-//     {
-//         map[i] = current->content;
-//         current = current->next;
-//         i++;
-//     }
-//     map[i] = 0;
-//     return (map);
-// }
+    pp = get_starting_pos(map);
+    
+}

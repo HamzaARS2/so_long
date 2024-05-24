@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_loader.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 19:34:09 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/23 18:54:14 by klock            ###   ########.fr       */
+/*   eventd: 2024/05/24 17:31:35 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void    render_map(mlx_t *mlx, t_map *map)
     mlx_image_t *coin;
 
     i = 0;
-    
-    brick = load_img_texture(mlx, "textures/brick3.png");
+    brick = load_img_texture(mlx, "textures/brick.png");
     coin = load_img_texture(mlx, "textures/coin.png");
     while (map->grid[i])
     {

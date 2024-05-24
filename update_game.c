@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   event_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/18 13:26:38 by helarras          #+#    #+#             */
+/*   Created: 2024/05/24 18:54:28 by helarras          #+#    #+#             */
 /*   eventd: 2024/05/24 18:59:43 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int32_t	main(int ac, char *av[])
-{
-    mlx_t *mlx;
-    t_event event;
-    t_map *map;
+void event_game(void* param) {
+    t_event *event = (t_event *)param;
+    t_player *player = event->player;
+    int new_x = player->point.x + player->speed_x;
+    int new_y = player->point.y + player->speed_y;
+    // event player, enemies, collectibles, etc.
+    if (check_collusion(event->map, new_x, new_y)) {
+        player->current_frame->instances[0].x = new_x;
+        player->current_frame->instances[0].y = new_y;
+        player->point.x = new_x;
+        player->point.y = new_y;
+    }
     
-    map = get_map(av[1]);
-    if (!map)
-        return (EXIT_FAILURE);
-    mlx = mlx_init(map->width,map->height, GAME_NAME, true);
-    if (!mlx)
-        return (EXIT_FAILURE);
-    event = render_game(mlx, map);
-    mlx_key_hook(mlx, &on_direction_change, &event);
-    mlx_loop_hook(mlx, handle_input, &event);
-    mlx_loop_hook(mlx, event_game, &event);
-    mlx_loop(mlx);
-    mlx_terminate(mlx);
-	return (EXIT_SUCCESS);
 }

@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strmapi.c                                       :+:      :+:    :+:   */
+/*   get_starting_pos.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/17 17:51:17 by helarras          #+#    #+#             */
-/*   eventd: 2023/12/28 15:35:16 by helarras         ###   ########.fr       */
+/*   Created: 2024/05/24 17:47:11 by helarras          #+#    #+#             */
+/*   eventd: 2024/05/24 17:52:39 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
-char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
+t_point get_starting_pos(char **map)
 {
-	size_t	i;
-	size_t	len;
-	char	*result;
+    int i;
+    int k;
 
-	if (!s || !f)
-		return (0);
-	len = ft_strlen(s);
-	result = malloc((len + 1));
-	if (!result)
-		return (0);
-	i = 0;
-	while (s[i])
-	{
-		result[i] = f(i, s[i]);
-		i++;
-	}
-	result[i] = 0;
-	return (result);
+    i = 0;
+    while (map[i])
+    {
+        k = 0;
+        while (map[i][k])
+        {
+            if (map[i][k] == 'P')
+            return ((t_point){k * TILE_SIZE, i * TILE_SIZE});        
+            k++;
+        }
+        i++;
+    }
+    return ((t_point){0});
 }

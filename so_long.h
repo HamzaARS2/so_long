@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:07:11 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/24 05:46:50 by klock            ###   ########.fr       */
+/*   eventd: 2024/05/24 18:59:43 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/home/klock/MLX42/include/MLX42/MLX42.h"
+# include "/Users/helarras/MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
@@ -22,7 +22,8 @@
 # include <unistd.h>
 # include <fcntl.h>
 
-# define TILE_SIZE 32
+# define TILE_SIZE 64
+# define PLAYER_SIZE 48
 # define GAME_NAME "Game of the year"
 
 typedef enum e_game_state
@@ -32,13 +33,16 @@ typedef enum e_game_state
 	s_state_game_over
 }	t_state;
 
+typedef struct s_point {
+	int x;
+	int y;
+} t_point;
+
 typedef struct s_player {
 	mlx_t *mlx;
 	mlx_image_t **sprites;
 	mlx_image_t *current_frame;
-	int direction_change;
-	int x;
-	int y;
+	t_point point;
 	int speed_x;
 	int speed_y;
 } t_player;
@@ -47,17 +51,24 @@ typedef struct s_map {
 	char	**grid;
 	size_t	width;
 	size_t	height;
+	t_point start_pos;
 } t_map;
 
-typedef struct s_update {
+typedef struct s_event {
 	mlx_t *mlx;
 	t_player *player;
 	t_map	*map;
-} t_update;
+} t_event;
 
 
+t_point get_starting_pos(char **map);
+int check_collusion(t_map *map, int new_x, int new_y);
 mlx_image_t   *load_img_texture(mlx_t *mlx,char *file_path);
-// map_loader
+void event_game(void* param);
+void handle_input(void* param);
+int    handle_error(unsigned char error);
+//	render
+t_event	render_game(mlx_t *mlx, t_map *map);
 void    render_map(mlx_t *mlx, t_map *map);
 
 t_list  *read_data(char *file_path);
@@ -74,8 +85,8 @@ int check_wall(char *wall, int flag);
 int is_walled(t_list *map_list);
 
 //player_loader
-t_player    *load_player(mlx_t *mlx);
-void    render_player(mlx_t *mlx, t_player *player, int x, int y);
+t_player    *load_player(mlx_t *mlx, t_point start_pos);
+void    render_player(mlx_t *mlx, t_player *player);
 void    set_player_speed(t_player *player, int speed_x, int speed_y);
 // direction
 void    on_direction_change(mlx_key_data_t keydata, void *param);

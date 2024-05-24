@@ -16,7 +16,9 @@ FT_PRINTF = $(FT_PRINTF_DIR)libftprintf.a
 LIBS = $(LIBFT) $(GNL_LIB) $(FT_PRINTF)
 
 MAIN_FILES := so_long.c set_color.c read_map.c map_handler.c comp_checker.c \
-is_walled.c player_manager.c direction.c load_img_texture.c map_loader.c
+is_walled.c player_manager.c direction.c load_img_texture.c map_loader.c \
+get_starting_pos.c check_collusion.c event_game.c handle_input.c render_game.c \
+handle_error.c
 GNL_FILES := get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 MAIN_OBJS := $(MAIN_FILES:.c=.o)
@@ -42,7 +44,7 @@ $(NAME): $(MAIN_OBJS) $(LIBS)
 	$(CC) $(MAIN_OBJS) $(LIBS) $(MLX_LIBS) $(MLX_HEADERS) -o $@
 
 
-%.o: %.c 
+%.o: %.c so_long.h
 	@$(CC) -o $@ -c $< $(MLX_HEADERS)
 
 clean:
