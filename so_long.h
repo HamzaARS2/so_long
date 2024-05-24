@@ -6,7 +6,7 @@
 /*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:07:11 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/23 17:44:03 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/24 05:46:50 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,18 @@ typedef struct s_player {
 	int speed_y;
 } t_player;
 
-typedef struct s_update {
-	mlx_t *mlx;
-	t_player *player;	
-} t_update;
-
 typedef struct s_map {
 	char	**grid;
 	size_t	width;
 	size_t	height;
 } t_map;
+
+typedef struct s_update {
+	mlx_t *mlx;
+	t_player *player;
+	t_map	*map;
+} t_update;
+
 
 mlx_image_t   *load_img_texture(mlx_t *mlx,char *file_path);
 // map_loader

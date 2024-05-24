@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_manager.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:23:16 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/23 18:38:06 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/23 18:59:47 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,14 @@ t_player    *load_player(mlx_t *mlx)
     if (!player->sprites)
         return (0);
     load_sprites(mlx, player);
-    player->x = 0;
-    player->y = 0;
+    player->x = 64;
+    player->y = 64;
     player->speed_x = 0;
     player->speed_y = 0;
     player->direction_change = 1;
     player->current_frame = player->sprites[0];
+    player->current_frame->instances[0].x = 64;
+    player->current_frame->instances[0].y = 64;
     return (player);
 }
 

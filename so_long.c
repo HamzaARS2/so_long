@@ -6,7 +6,7 @@
 /*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:26:38 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/23 18:13:15 by klock            ###   ########.fr       */
+/*   Updated: 2024/05/24 05:51:41 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,42 @@ void handle_input(void* param) {
         set_player_speed(player, 0, 0);
 }
 
+int check_collusion(t_update *update, int new_x, int new_y) {
+    t_map *map = update->map;
+    int top_left_x = new_x / TILE_SIZE;
+    int top_left_y = new_y / TILE_SIZE;
+
+    int top_right_x = (new_x + TILE_SIZE - 1) / TILE_SIZE;
+    int top_right_y = new_y / TILE_SIZE;
+
+    int bottom_left_x = new_x / TILE_SIZE;
+    int bottom_left_y = (new_y + TILE_SIZE - 1) / TILE_SIZE;
+
+    int bottom_right_x = (new_x + TILE_SIZE - 1) / TILE_SIZE;
+    int bottom_right_y = (new_y + TILE_SIZE - 1) / TILE_SIZE;
+
+    // Check if any of the corners collide with a wall
+    if (map->grid[top_left_y][top_left_x] == '1' ||
+        map->grid[top_right_y][top_right_x] == '1' ||
+        map->grid[bottom_left_y][bottom_left_x] == '1' ||
+        map->grid[bottom_right_y][bottom_right_x] == '1') {
+        return 0; // Collision detected
+    }
+    return 1; //
+}
+
 void update_game(void* param) {
     t_update *update = (t_update *)param;
     t_player *player = update->player;
-    
+    int new_x = player->x + player->speed_x;
+    int new_y = player->y + player->speed_y;
     // Update player, enemies, collectibles, etc.
-    player->current_frame->instances[0].x += player->speed_x;
-    player->current_frame->instances[0].y += player->speed_y;
-    player->x = player->current_frame->instances[0].x;
-    player->y = player->current_frame->instances[0].y;
+    if (check_collusion(update, new_x, new_y)) {
+        player->current_frame->instances[0].x = new_x;
+        player->current_frame->instances[0].y = new_y;
+        player->x = new_x;
+        player->y = new_y;
+    }
     
 }
 
@@ -61,7 +88,7 @@ int32_t	main(int ac, char *av[])
         return (EXIT_FAILURE);
     render_map(mlx, map);
     player = load_player(mlx);
-    update = (t_update){mlx, player};
+    update = (t_update){mlx, player, map};
     mlx_key_hook(mlx, &on_direction_change, &update);
     mlx_loop_hook(mlx, handle_input, &update);
     mlx_loop_hook(mlx, update_game, &update);
