@@ -84,6 +84,7 @@ int    create_map(t_map *map, t_list *data)
     map->grid[i] = 0;
     map->width = (ft_strlen(map->grid[0]) - 1) * TILE_SIZE;
     map->height = data_size * TILE_SIZE;
+    map->start_pos = get_starting_pos(map->grid);
     return (1);
 }
 
@@ -106,13 +107,7 @@ t_map   *get_map(char *file_path)
         return (NULL);
     if (!create_map(map, data))
         return (NULL);
+    if (!can_reach_all(map, map->start_pos.y / TILE_SIZE, map->start_pos.x / TILE_SIZE))
+        handle_error('N' + 'R');
     return (map);
-}
-
-int is_comps_reachable(char **map)
-{
-    t_point pp;
-
-    pp = get_starting_pos(map);
-    
 }

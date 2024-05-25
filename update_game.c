@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   event_game.c                                      :+:      :+:    :+:   */
+/*   update_game.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void event_game(void* param) {
+void update_game(void* param) {
     t_event *event = (t_event *)param;
     t_player *player = event->player;
     int new_x = player->point.x + player->speed_x;

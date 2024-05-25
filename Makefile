@@ -17,8 +17,8 @@ LIBS = $(LIBFT) $(GNL_LIB) $(FT_PRINTF)
 
 MAIN_FILES := so_long.c set_color.c read_map.c map_handler.c comp_checker.c \
 is_walled.c player_manager.c direction.c load_img_texture.c map_loader.c \
-get_starting_pos.c check_collusion.c event_game.c handle_input.c render_game.c \
-handle_error.c
+get_starting_pos.c check_collusion.c update_game.c handle_input.c render_game.c \
+handle_error.c can_reach_all.c
 GNL_FILES := get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 MAIN_OBJS := $(MAIN_FILES:.c=.o)

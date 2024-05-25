@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/Users/helarras/MLX42/include/MLX42/MLX42.h"
+# include "/home/klock/MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
@@ -64,9 +64,10 @@ typedef struct s_event {
 t_point get_starting_pos(char **map);
 int check_collusion(t_map *map, int new_x, int new_y);
 mlx_image_t   *load_img_texture(mlx_t *mlx,char *file_path);
-void event_game(void* param);
+void update_game(void* param);
 void handle_input(void* param);
 int    handle_error(unsigned char error);
+int can_reach_all(t_map *map, int startY, int startX);
 //	render
 t_event	render_game(mlx_t *mlx, t_map *map);
 void    render_map(mlx_t *mlx, t_map *map);

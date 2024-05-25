@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_error.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
+/*   By: klock <klock@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 19:51:58 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/24 19:52:10 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/24 17:34:23 by klock            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int    handle_error(unsigned char error)
         ft_printf("Error\n%s\n", "The map is not rectangular");
     else if (error == 'W')
         ft_printf("Error\n%s\n", "The map is not walled!");
+    else if (error == 'N' + 'R')
+        ft_printf("Error\n%s\n", "Components not reachable!");
     else
         return (1);
     return (0);
