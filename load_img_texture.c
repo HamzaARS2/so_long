@@ -18,7 +18,9 @@ mlx_image_t   *load_img_texture(mlx_t *mlx,char *file_path)
     mlx_image_t     *image;
 
     texture = mlx_load_png(file_path);
+    if (!texture)
+        return (NULL);
     image = mlx_texture_to_image(mlx, texture);
-
+    mlx_delete_texture(texture);
     return (image);
 }

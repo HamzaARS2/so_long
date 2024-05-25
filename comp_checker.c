@@ -24,21 +24,17 @@ int comp_count(char *row, char comp)
             count++;
     return (count);
 }
-
-int is_exit_exists(t_list *map_list)
+int is_exit_exists(char **map)
 {
-    t_list *current;
+    int i;
     int found;
 
+    i = 0;
     found = 0;
-    if (!map_list)
+    if (!map)
         return (0);
-    current = map_list;
-    while (current)
-    {
-        found += comp_count(current->content, 'E');
-        current = current->next;
-    }
+    while (map[i])
+        found += comp_count(map[i++], 'E');
     if (found == 1)
         return (1);
     else if (found > 1)
@@ -46,20 +42,17 @@ int is_exit_exists(t_list *map_list)
     return ('E');
 }
 
-int is_player_exists(t_list *map_list)
+int is_player_exists(char **map)
 {
-    t_list *current;
+    int i;
     int found;
 
+    i = 0;
     found = 0;
-    if (!map_list)
+    if (!map)
         return (0);
-    current = map_list;
-    while (current)
-    {
-        found += comp_count(current->content, 'P');
-        current = current->next;
-    }
+    while (map[i])
+        found += comp_count(map[i++], 'P');
     if (found == 1)
         return (1);
     else if (found > 1)
@@ -67,22 +60,19 @@ int is_player_exists(t_list *map_list)
     return ('P');
 }
 
-int is_collectibles_exists(t_list *map_list)
+int is_collectibles_exists(char **map)
 {
-    t_list *current;
+    int i;
     int found;
 
+    i = 0;
     found = 0;
-    if (!map_list)
+    if (!map)
         return (0);
-    current = map_list;
-    while (current)
-    {
-        if (ft_strchr(current->content, 'C'))
-            found++;
-        current = current->next;
-    }
+    while (map[i])
+        found += comp_count(map[i++], 'C');
     if (found > 0)
         return (1);
     return ('C');
 }
+

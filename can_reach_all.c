@@ -4,44 +4,21 @@ static int is_valid(char **grid, int y, int x)
 {
     if (y < 0 || x < 0)
         return 0;
-    if (grid[y][x] == '1') // If it's a wall or already visited
+    if (grid[y][x] == '1')
         return 0;
     return 1;
 }
-void    print(char **grid)
-{
-    int i = 0;
-    while (grid[i])
-       printf("%s", grid[i++]);
-    printf("\n");
-}
+
 void dfs(char **grid, int y, int x)
 {
     if (!is_valid(grid, y, x))
         return;
 
-    grid[y][x] = '1'; // Mark as visited
+    grid[y][x] = '1';
     dfs(grid, y + 1, x);
     dfs(grid, y - 1, x);
     dfs(grid, y, x + 1);
     dfs(grid, y, x - 1);
-}
-char **copy_grid(char **grid, int size)
-{
-    int i;
-    char **grid_cpy;
-
-    i = 0;
-    grid_cpy = malloc((size + 1)* sizeof(char *));
-    if (!grid_cpy)
-        return (0);
-    while (i < size) {
-        grid_cpy[i] = ft_strdup(grid[i]);
-        i++;
-    }
-    grid_cpy[i] = 0;
-
-    return grid_cpy;
 }
 
 void free_grid(char **grid, int size)
@@ -53,6 +30,30 @@ void free_grid(char **grid, int size)
         free(grid[i++]);
     free(grid);
 }
+
+char **copy_grid(char **grid, int size)
+{
+    int i;
+    char **grid_cpy;
+
+    i = 0;
+    grid_cpy = malloc((size + 1)* sizeof(char *));
+    if (!grid_cpy)
+        return (0);
+    while (i < size) {
+        grid_cpy[i] = ft_strdup(grid[i]);
+        if (!grid_cpy[i])
+        {
+            free_grid(grid_cpy, i);
+            return (0);
+        }
+        i++;
+    }
+    grid_cpy[i] = 0;
+    return grid_cpy;
+}
+
+
 int can_reach_all(t_map *map, int start_y, int start_x)
 {
     int i;
@@ -70,7 +71,10 @@ int can_reach_all(t_map *map, int start_y, int start_x)
         while (grid_cpy[i][k])
         {
             if (grid_cpy[i][k] == 'C' || grid_cpy[i][k] == 'E')
-                return (0);
+            {
+                free_grid(grid_cpy, map->height / TILE_SIZE);
+                return (handle_error('N' + 'R'));
+            }
             k++;
         }
         i++;

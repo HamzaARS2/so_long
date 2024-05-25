@@ -28,25 +28,21 @@ int check_wall(char *wall, int flag)
     }
     return (1);
 }
-
-int is_walled(t_list *map_list)
+int is_walled(char **grid)
 {
-    t_list  *current;
-    int     broken;
+    int i;
+    int broken;
 
-    
-    if (!map_list)
+    i = 0;
+    if (!grid || !grid[0])
         return (0);
-    current = map_list->next;
-    broken = check_wall(map_list->content, 1);
-    
-    while (current && broken)
+    broken = check_wall(grid[0], 1);
+    while (grid[++i] && broken)
     {
-        if (!current->next)
-            broken = check_wall(current->content, 1);
+        if (!grid[i + 1])
+            broken = check_wall(grid[i], 1);
         else
-            broken = check_wall(current->content, 0);
-        current = current->next;
+            broken = check_wall(grid[i], 0);
     }
     if (!broken)
         return ('W');

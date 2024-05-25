@@ -19,7 +19,9 @@ void handle_input(void* param) {
     player = event->player;
 
     if (mlx_is_key_down(event->mlx, MLX_KEY_ESCAPE))
+    {
 	mlx_close_window(event->mlx);
+    }
 	else if (mlx_is_key_down(event->mlx, MLX_KEY_UP))
         set_player_speed(player, 0, -5);
 	else if (mlx_is_key_down(event->mlx, MLX_KEY_DOWN))

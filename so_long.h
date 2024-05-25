@@ -13,7 +13,7 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/home/klock/MLX42/include/MLX42/MLX42.h"
+# include "/Users/helarras/MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
@@ -54,36 +54,57 @@ typedef struct s_map {
 	t_point start_pos;
 } t_map;
 
+typedef struct s_components {
+	mlx_image_t *coin;
+	mlx_image_t *brick;
+	mlx_image_t **exit;
+} t_components;
+
 typedef struct s_event {
 	mlx_t *mlx;
 	t_player *player;
 	t_map	*map;
+	t_components components;
 } t_event;
 
 
+
+
+
 t_point get_starting_pos(char **map);
-int check_collusion(t_map *map, int new_x, int new_y);
+
+
 mlx_image_t   *load_img_texture(mlx_t *mlx,char *file_path);
 void update_game(void* param);
 void handle_input(void* param);
 int    handle_error(unsigned char error);
 int can_reach_all(t_map *map, int startY, int startX);
+t_components load_components(mlx_t *mlx);
+
+void    clean_resources(t_event event);
+// utils
+void    free_map(t_map *map);
+void    free_player(mlx_t *mlx, t_player *player);
+int	free_data(t_list **data);
+// collusion checker
+int check_collusion(t_map *map, int new_x, int new_y, char obj);
+int get_collided_instance(mlx_image_t *img_obj, int new_x, int new_y);
 //	render
 t_event	render_game(mlx_t *mlx, t_map *map);
-void    render_map(mlx_t *mlx, t_map *map);
+void    render_map(mlx_t *mlx, t_map *map, t_components components);
 
 t_list  *read_data(char *file_path);
 // comp_checker
-int is_exit_exists(t_list *map_list);
-int is_player_exists(t_list *map_list);
-int is_collectibles_exists(t_list *map_list);
+int is_exit_exists(char **grid);
+int is_player_exists(char **grid);
+int is_collectibles_exists(char **grid);
 //map_handler
-int check_components(t_list *map_list);
-int check_map(t_list *map_list);
+int check_components(char **grid);
+int check_map(char **map);
 t_map   *get_map(char *file_path);
 // is_walled
 int check_wall(char *wall, int flag);
-int is_walled(t_list *map_list);
+int is_walled(char **grid);
 
 //player_loader
 t_player    *load_player(mlx_t *mlx, t_point start_pos);

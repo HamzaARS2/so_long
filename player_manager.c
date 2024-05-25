@@ -39,7 +39,9 @@ mlx_image_t **create_sprites(mlx_t *mlx, mlx_texture_t **textures, int num_textu
             free(sprites);
             return NULL;
         }
+        mlx_delete_texture(textures[i]);
     }
+    free(textures);
     return sprites;
 }
 

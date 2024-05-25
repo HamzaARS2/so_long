@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_color.c                                        :+:      :+:    :+:   */
+/*   clean_resources.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/19 16:29:51 by helarras          #+#    #+#             */
-/*   eventd: 2024/05/19 18:18:36 by helarras         ###   ########.fr       */
+/*   Created: 2024/05/25 16:23:33 by helarras          #+#    #+#             */
+/*   Updated: 2024/05/25 22:53:51 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int    set_color(void *pixels, size_t area, int rgba) 
+
+void    clean_resources(t_event event)
 {
-    size_t i;
-    
-    i = 0;
-    while (i < area)
-        ((int *)pixels)[i++] = rgba;
-    return (rgba);
+    t_player    *player;
+    t_map       *map;
+
+    player = event.player;
+    map = event.map;
+    free_player(event.mlx, player);
+    free_map(map);
+    mlx_delete_image(event.mlx, event.components.brick);
+    mlx_delete_image(event.mlx, event.components.coin);
+    mlx_delete_image(event.mlx, event.components.exit[0]);
+    mlx_delete_image(event.mlx, event.components.exit[1]);
 }
