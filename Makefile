@@ -27,7 +27,7 @@ GNL_OBJS := $(GNL_FILES:.c=.o)
 NAME := gameoftheyear
 
 all: libmlx $(NAME)
-	make clean
+	
 
 libmlx:
 	@cmake $(LIBMLX) -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4

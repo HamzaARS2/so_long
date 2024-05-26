@@ -45,29 +45,77 @@ void    hide_object_instance(t_object *object, int instance)
         object->sprites[i++]->instances[instance].enabled = 0;
 }
 
+
+void handle_coin_collision(t_event *event) {
+    t_player *player = event->player;
+    int new_x = player->point.x;
+    int new_y = player->point.y;
+
+    if (!check_collusion(event->map, new_x, new_y, 'C')) {
+        int instance = get_collided_instance(event->components->coin->current_frame, new_x, new_y);
+        hide_object_instance(event->components->coin, instance);
+    }
+}
+
+void check_all_coins_collected(t_object *coin, t_object *exit) {
+    if (coin->hidden >= coin->current_frame->count && !exit->sprites[1]->enabled) {
+        printf("All coins collected!\n");
+        exit->sprites[0]->enabled = 0;
+        exit->sprites[1]->enabled = 1;
+    }
+}
+
+void update_player_position(t_player *player, int new_x, int new_y) {
+    player->current_frame->instances[0].x = new_x;
+    player->current_frame->instances[0].y = new_y;
+    player->point.x = new_x;
+    player->point.y = new_y;
+}
+
 void update_game(void* param) {
     t_event *event = (t_event *)param;
     t_player *player = event->player;
     int new_x = player->point.x + player->speed_x;
     int new_y = player->point.y + player->speed_y;
-    int instance;
-    // event player, enemies, collectibles, etc.
-    check_direction(player);
-    if (check_collusion(event->map, new_x, new_y, '1')) 
-    {
-        player->current_frame->instances[0].x = new_x;
-        player->current_frame->instances[0].y = new_y;
-        player->point.x = new_x;
-        player->point.y = new_y;
-    }
-    if (!check_collusion(event->map, new_x, new_y, 'C'))
-    {
-        instance = get_collided_instance(event->components->coin->current_frame, new_x, new_y);
-        hide_object_instance(event->components->coin, instance);
-    }
-        if (event->components->coin->hidden >= event->components->coin->current_frame->count) {
 
-        event->components->exit->sprites[0]->enabled = 0;
-        event->components->exit->sprites[1]->enabled = 1;
-        }
+    check_direction(player);
+    if (check_collusion(event->map, new_x, new_y, '1')) {
+        update_player_position(player, new_x, new_y);
+    }
+
+    handle_coin_collision(event);
+    check_all_coins_collected(event->components->coin, event->components->exit);
 }
+
+
+
+
+
+
+// void update_game(void* param) {
+//     t_event *event = (t_event *)param;
+//     t_player *player = event->player;
+//     int new_x = player->point.x + player->speed_x;
+//     int new_y = player->point.y + player->speed_y;
+//     int instance;
+//     // event player, enemies, collectibles, etc.
+//     check_direction(player);
+//     if (check_collusion(event->map, new_x, new_y, '1')) 
+//     {
+//         player->current_frame->instances[0].x = new_x;
+//         player->current_frame->instances[0].y = new_y;
+//         player->point.x = new_x;
+//         player->point.y = new_y;
+//     }
+//     if (!check_collusion(event->map, new_x, new_y, 'C'))
+//     {
+//         instance = get_collided_instance(event->components->coin->current_frame, new_x, new_y);
+//         hide_object_instance(event->components->coin, instance);
+//     }
+//         if (event->components->coin->hidden >= event->components->coin->current_frame->count) {
+//             printf("DETECTED!\n");
+
+//         event->components->exit->sprites[0]->enabled = 0;
+//         event->components->exit->sprites[1]->enabled = 1;
+//         }
+// }

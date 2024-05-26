@@ -13,7 +13,8 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include "/Users/helarras/MLX42/include/MLX42/MLX42.h"
+
+# include "/home/klock/MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
