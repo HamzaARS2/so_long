@@ -17,10 +17,11 @@ void    onexit()
     system("leaks -q gameoftheyear");
 }
 
+
 int32_t	main(int ac, char *av[])
 {
     mlx_t *mlx;
-    t_event event;
+    t_event *event;
     t_map *map;
 
    atexit(onexit);
@@ -31,7 +32,7 @@ int32_t	main(int ac, char *av[])
     if (!mlx)
         return (EXIT_FAILURE);
     event = render_game(mlx, map);
-    mlx_key_hook(mlx, &on_direction_change, &event);
+    mlx_loop_hook(mlx, on_direction_change, &event);
     mlx_loop_hook(mlx, handle_input, &event);
     mlx_loop_hook(mlx, update_game, &event);
     mlx_loop(mlx);

@@ -42,6 +42,7 @@ typedef struct s_player {
 	mlx_t *mlx;
 	mlx_image_t **sprites;
 	mlx_image_t *current_frame;
+	int direction;
 	t_point point;
 	int speed_x;
 	int speed_y;
@@ -54,17 +55,23 @@ typedef struct s_map {
 	t_point start_pos;
 } t_map;
 
+typedef struct s_object {
+	mlx_image_t **sprites;
+	mlx_image_t *current_frame;
+	int hidden;
+} t_object;
+
 typedef struct s_components {
-	mlx_image_t *coin;
-	mlx_image_t *brick;
-	mlx_image_t **exit;
+	t_object *coin;
+	t_object *brick;
+	t_object *exit;
 } t_components;
 
 typedef struct s_event {
 	mlx_t *mlx;
 	t_player *player;
 	t_map	*map;
-	t_components components;
+	t_components *components;
 } t_event;
 
 
@@ -79,9 +86,9 @@ void update_game(void* param);
 void handle_input(void* param);
 int    handle_error(unsigned char error);
 int can_reach_all(t_map *map, int startY, int startX);
-t_components load_components(mlx_t *mlx);
+t_components *load_components(mlx_t *mlx);
 
-void    clean_resources(t_event event);
+void    clean_resources(t_event *event);
 // utils
 void    free_map(t_map *map);
 void    free_player(mlx_t *mlx, t_player *player);
@@ -90,8 +97,8 @@ int	free_data(t_list **data);
 int check_collusion(t_map *map, int new_x, int new_y, char obj);
 int get_collided_instance(mlx_image_t *img_obj, int new_x, int new_y);
 //	render
-t_event	render_game(mlx_t *mlx, t_map *map);
-void    render_map(mlx_t *mlx, t_map *map, t_components components);
+t_event	*render_game(mlx_t *mlx, t_map *map);
+void    render_map(mlx_t *mlx, t_map *map, t_components *components);
 
 t_list  *read_data(char *file_path);
 // comp_checker
@@ -111,6 +118,7 @@ t_player    *load_player(mlx_t *mlx, t_point start_pos);
 void    render_player(mlx_t *mlx, t_player *player);
 void    set_player_speed(t_player *player, int speed_x, int speed_y);
 // direction
-void    on_direction_change(mlx_key_data_t keydata, void *param);
+void    on_direction_change(void *param);
+void    set_direction(t_player *player, mlx_image_t *current_frame);
 
 #endif

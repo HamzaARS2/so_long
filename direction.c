@@ -23,17 +23,21 @@ void    set_direction(t_player *player, mlx_image_t *current_frame)
     player->current_frame->enabled = 1;
 }
 
-void    on_direction_change(mlx_key_data_t keydata, void *param)
+void    on_direction_change(void *param)
 {
-    t_event *event = (t_event *)param;
+   t_event *event = (t_event *)param;
     t_player *player = event->player;
     
-    if (keydata.key == MLX_KEY_RIGHT && keydata.action == MLX_PRESS)
-        set_direction(player, player->sprites[1]); 
-    else if (keydata.key == MLX_KEY_LEFT && keydata.action == MLX_PRESS)
-        set_direction(player, player->sprites[2]);
-    else if (keydata.key == MLX_KEY_UP && keydata.action == MLX_PRESS)
-        set_direction(player, player->sprites[3]);
-    else if (keydata.key == MLX_KEY_DOWN && keydata.action == MLX_PRESS)
-        set_direction(player, player->sprites[0]);
+    // printf("direction: %i\n", player->direction);
+    if (mlx_is_key_down(event->mlx, MLX_KEY_RIGHT))
+        player->direction = 1;
+	else if (mlx_is_key_down(event->mlx, MLX_KEY_LEFT))
+        player->direction = 2;
+	else if (mlx_is_key_down(event->mlx, MLX_KEY_UP))
+        player->direction = 3;
+	else if (mlx_is_key_down(event->mlx, MLX_KEY_DOWN))
+        player->direction = 0;
+    else
+        player->direction = 0;
 }
+

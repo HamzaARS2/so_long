@@ -6,20 +6,87 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 22:12:26 by helarras          #+#    #+#             */
-/*   Updated: 2024/05/25 22:22:38 by helarras         ###   ########.fr       */
+/*   Updated: 2024/05/26 20:56:31 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-t_components load_components(mlx_t *mlx)
+t_object    *load_exit(mlx_t *mlx)
 {
-    t_components components;
+    t_object *exit;
 
-    components.brick = load_img_texture(mlx, "textures/brick.png");
-    components.coin = load_img_texture(mlx, "textures/coin16.png");
-    components.exit = malloc(2 * sizeof(mlx_image_t));
-    components.exit[0] = load_img_texture(mlx, "textures/exit_closed.png");
-    components.exit[1] = load_img_texture(mlx, "textures/exit_opened.png");
+    exit = malloc(sizeof(t_object));
+    if (!exit)
+        return (NULL);
+    exit->sprites = malloc(3 * sizeof(mlx_image_t));
+    if (!exit->sprites)
+    {
+        free(exit);
+        return (NULL);
+    }
+    exit->sprites[0] = load_img_texture(mlx, "textures/exit_closed.png");
+    exit->sprites[1] = load_img_texture(mlx, "textures/exit_opened.png");
+    exit->sprites[2] = 0;
+    exit->current_frame = exit->sprites[0];
+    exit->hidden = 0;
+    return (exit);
+}
+
+
+t_object    *load_coin(mlx_t *mlx)
+{
+    t_object *coin;
+
+    coin = malloc(sizeof(t_object));
+    if (!coin)
+        return (NULL);
+    coin->sprites = malloc(3 * sizeof(mlx_image_t));
+    if (!coin->sprites)
+    {
+        free(coin);
+        return (NULL);
+    }
+    coin->sprites[0] = load_img_texture(mlx, "textures/coin16.png");
+    coin->sprites[1] = load_img_texture(mlx, "textures/coin.png");
+    coin->sprites[2] = 0;
+    coin->current_frame = coin->sprites[0];
+    coin->hidden = 0;
+    return (coin);
+}
+
+t_object    *load_brick(mlx_t *mlx)
+{
+    t_object *brick;
+
+    brick = malloc(sizeof(t_object));
+    if (!brick)
+        return (NULL);
+    brick->sprites = malloc(2 * sizeof(mlx_image_t));
+    if (!brick->sprites)
+        return (NULL);
+    brick->sprites[0] = load_img_texture(mlx, "textures/brick.png");
+    brick->sprites[1] = 0;
+    brick->current_frame = brick->sprites[0];
+    brick->hidden = 0;
+    return (brick);
+}
+
+t_components *load_components(mlx_t *mlx)
+{
+    t_components *components;
+
+    components = malloc (sizeof(t_components));
+    if (!components)
+        return (NULL);
+    components->brick = load_brick(mlx);
+    if (!components->brick)
+        return (NULL);
+    components->coin = load_coin(mlx);
+    if (!components->coin)
+        return (NULL);
+    components->exit = load_exit(mlx);
+    if (!components->exit)
+        return (NULL);
     return (components);
 }
