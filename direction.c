@@ -21,6 +21,7 @@ void    set_direction(t_player *player, mlx_image_t *current_frame)
     while (i < 4)
         player->sprites[i++]->enabled = 0;
     player->current_frame->enabled = 1;
+
 }
 
 void    on_direction_change(void *param)

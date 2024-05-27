@@ -16,6 +16,7 @@ void    check_direction(t_player *player)
 {
     if (player->direction == 0) {
         // idle
+
         set_direction(player, player->sprites[0]);
     } else if (player->direction == 1) {
         // right
@@ -65,11 +66,24 @@ void check_all_coins_collected(t_object *coin, t_object *exit) {
     }
 }
 
+void    on_player_exit(t_event *event)
+{
+    t_player *player = event->player;
+    t_object *exit = event->components->exit;
+    int new_x = player->point.x;
+    int new_y = player->point.y;
+
+    if (!check_collusion(event->map, new_x + PLAYER_SIZE / 2, new_y + PLAYER_SIZE / 2, 'E') && exit->sprites[1]->enabled) {
+        mlx_close_window(event->mlx);
+    }
+}
+
 void update_player_position(t_player *player, int new_x, int new_y) {
     player->current_frame->instances[0].x = new_x;
     player->current_frame->instances[0].y = new_y;
     player->point.x = new_x;
     player->point.y = new_y;
+   
 }
 
 void update_game(void* param) {
@@ -79,12 +93,21 @@ void update_game(void* param) {
     int new_y = player->point.y + player->speed_y;
 
     check_direction(player);
-    if (check_collusion(event->map, new_x, new_y, '1')) {
-        update_player_position(player, new_x, new_y);
+    // if (check_collusion(event->map, new_x, new_y, '1')) {
+    //     update_player_position(player, new_x, new_y);
+    // }
+
+     if (new_x != player->point.x || new_y != player->point.y) {
+        if (check_collusion(event->map, new_x, new_y, '1')) {
+            update_player_position(player, new_x, new_y);
+            player->moves++; // Increment move count only if the player actually moves
+            printf("Moves: %d\n", player->moves); // Print move count to shell
+        }
     }
 
     handle_coin_collision(event);
     check_all_coins_collected(event->components->coin, event->components->exit);
+    on_player_exit(event);
 }
 
 

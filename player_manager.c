@@ -76,6 +76,7 @@ t_player    *load_player(mlx_t *mlx, t_point start_pos)
     player->speed_x = 0;
     player->speed_y = 0;
     player->direction = 0;
+    player->moves = 0;
     player->current_frame = player->sprites[0];
     
     return (player);

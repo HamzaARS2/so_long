@@ -47,6 +47,7 @@ typedef struct s_player {
 	t_point point;
 	int speed_x;
 	int speed_y;
+	int moves;
 } t_player;
 
 typedef struct s_map {
