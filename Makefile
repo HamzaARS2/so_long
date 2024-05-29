@@ -17,14 +17,15 @@ LIBS = $(LIBFT) $(GNL_LIB) $(FT_PRINTF)
 
 MAIN_FILES := so_long.c read_map.c map_handler.c comp_checker.c \
 is_walled.c player_manager.c direction.c load_img_texture.c map_loader.c \
-get_starting_pos.c check_collusion.c update_game.c handle_input.c render_game.c \
-handle_error.c can_reach_all.c clean_resources.c utils.c load_components.c
+get_starting_pos.c check_collision.c update_game.c handle_input.c render_game.c \
+handle_error.c can_reach_all.c clean_resources.c utils.c load_components.c \
+moves_counter.c check_coins.c sprites.c
 GNL_FILES := get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
 
 MAIN_OBJS := $(MAIN_FILES:.c=.o)
 GNL_OBJS := $(GNL_FILES:.c=.o)
 
-NAME := gameoftheyear
+NAME := so_long
 
 all: libmlx $(NAME)
 	
@@ -46,12 +47,12 @@ $(NAME): $(MAIN_OBJS) $(LIBS)
 
 
 %.o: %.c so_long.h
-	@$(CC) -o $@ -c $< $(MLX_HEADERS)
+	$(CC) -c $< -o $@ $(MLX_HEADERS)
 
 clean:
 	rm -rf $(MAIN_OBJS)
 	@rm -rf $(GNL_OBJS)
-	#@rm -rf $(LIBMLX)/build
+	@rm -rf $(LIBMLX)/build
 	@make -C $(LIBFT_DIR) clean
 	@make -C $(FT_PRINTF_DIR) clean
 

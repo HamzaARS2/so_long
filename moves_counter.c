@@ -1,21 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*   moves_counter.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: helarras <helarras@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/29 21:56:37 by helarras          #+#    #+#             */
-/*   Updated: 2023/12/29 21:56:38 by helarras         ###   ########.fr       */
+/*   Created: 2024/05/29 15:52:43 by helarras          #+#    #+#             */
+/*   Updated: 2024/05/29 17:20:39 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "so_long.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	count_moves(t_player *player, int new_x, int new_y)
 {
-	if (!lst || !new)
-		return ;
-	new->next = *lst;
-	*lst = new;
+	player->moves++;
+	ft_printf("Moves: %i\n", player->moves);
 }

@@ -25,7 +25,7 @@ $(NAME): $(OBJ_FILES)
 	ar rcs $@ $^
 
 %.o: %.c libft.h
-	@$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $< -o $@
 
 clean:
 	rm -f $(OBJ_FILES) $(BONUS_OBJ)
