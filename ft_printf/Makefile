@@ -11,7 +11,7 @@ $(NAME): $(OBJS)
 	ar rcs $@ $^
 
 %.o: %.c ft_printf.h
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) $(CFLAGS) -c $(CFLAGS) $< -o $@
 
 clean:
 	rm -f $(OBJS)
