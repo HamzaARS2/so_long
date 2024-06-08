@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 12:07:11 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/04 15:16:19 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:14:04 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_moves
 {
 	size_t			count;
 	mlx_image_t		*img;
+	int				move_delay;
 }					t_moves;
 
 typedef struct s_player
@@ -149,8 +150,6 @@ t_player			*load_player(mlx_t *mlx, t_point start_pos);
 void				render_player(mlx_t *mlx, t_player *player);
 void				set_player_speed(t_player *player, int speed_x,
 						int speed_y);
-void				on_direction_change(void *param);
-
 void				render_objects(mlx_t *mlx, t_object *object, int x, int y);
 
 #endif

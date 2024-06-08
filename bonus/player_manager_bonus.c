@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:23:16 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/04 15:33:19 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/04 19:47:34 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ int	on_enemy_hit(t_player *player, t_enemy *enemy)
 	frame = enemy->object->current_frame;
 	p_pnt = player->point;
 	e_pnt = enemy->point;
-	if (p_pnt.x < e_pnt.x + ENEMY_SIZE && p_pnt.x + PLAYER_SIZE > e_pnt.x
-		&& p_pnt.y < e_pnt.y + ENEMY_SIZE && p_pnt.y
-		+ PLAYER_SIZE > e_pnt.y)
-		return (1);
+	if (frame == 5 || frame == 13 || frame == 10 || frame == 16)
+	{
+		if (p_pnt.x < e_pnt.x + ENEMY_SIZE && p_pnt.x + PLAYER_SIZE > e_pnt.x
+			&& p_pnt.y < e_pnt.y + ENEMY_SIZE && p_pnt.y
+			+ PLAYER_SIZE > e_pnt.y)
+			return (1);
+	}
 	return (0);
 }

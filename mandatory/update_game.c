@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:54:28 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:59 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/05 12:52:09 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	update_player_position(t_player *player, int new_x, int new_y)
 	change_frames_pos(player->sprites[1], player->point.x, player->point.y);
 	change_frames_pos(player->sprites[2], player->point.x, player->point.y);
 	change_frames_pos(player->sprites[3], player->point.x, player->point.y);
+	count_moves(player);
 }
 
 void	update_game(void *param)
@@ -89,10 +90,7 @@ void	update_game(void *param)
 	if (new_x != player->point.x || new_y != player->point.y)
 	{
 		if (check_collision(event->map, new_x, new_y, '1'))
-		{
 			update_player_position(player, new_x, new_y);
-			count_moves(player);
-		}
 	}
 	display_cdirection_frame(player);
 	handle_coin_collision(event);

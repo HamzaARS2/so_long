@@ -6,11 +6,18 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 18:54:13 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/04 14:07:32 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/05 11:25:30 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
+
+void	set_direction_speed(t_player *player, int direction, int speed_x,
+		int speed_y)
+{
+	set_player_speed(player, speed_x, speed_y);
+	player->direction = direction;
+}
 
 void	handle_input(void *param)
 {
@@ -22,13 +29,13 @@ void	handle_input(void *param)
 	if (mlx_is_key_down(event->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(event->mlx);
 	else if (mlx_is_key_down(event->mlx, MLX_KEY_UP))
-		set_player_speed(player, 0, -3);
+		set_direction_speed(player, 1, 0, -3);
 	else if (mlx_is_key_down(event->mlx, MLX_KEY_DOWN))
-		set_player_speed(player, 0, 3);
+		set_direction_speed(player, 0, 0, 3);
 	else if (mlx_is_key_down(event->mlx, MLX_KEY_LEFT))
-		set_player_speed(player, -3, 0);
+		set_direction_speed(player, 3, -3, 0);
 	else if (mlx_is_key_down(event->mlx, MLX_KEY_RIGHT))
-		set_player_speed(player, 3, 0);
+		set_direction_speed(player, 2, 3, 0);
 	else
-		set_player_speed(player, 0, 0);
+		set_direction_speed(player, 4, 0, 0);
 }

@@ -1,5 +1,5 @@
 CC := cc
-CFLAGS := -Wall -Wextra -Werror -Wunreachable-code -Ofast 
+CFLAGS := -Wall -Wextra -Werror 
 
 LIBMLX := ~/MLX42
 MLX_HEADERS := -I ./include -I $(LIBMLX)/include
@@ -17,13 +17,13 @@ FT_PRINTF = $(FT_PRINTF_DIR)libftprintf.a
 LIBS = $(LIBFT) $(GNL_LIB) $(FT_PRINTF)
 
 MAIN_FILES := mandatory/so_long.c mandatory/read_map.c mandatory/map_handler.c mandatory/comp_checker.c \
-mandatory/is_walled.c mandatory/player_manager.c mandatory/direction.c mandatory/load_img_texture.c mandatory/map_loader.c \
+mandatory/is_walled.c mandatory/player_manager.c mandatory/load_img_texture.c mandatory/map_loader.c \
 mandatory/get_starting_pos.c mandatory/check_collision.c mandatory/update_game.c mandatory/handle_input.c mandatory/render_game.c \
 mandatory/handle_error.c mandatory/can_reach_all.c mandatory/clean_resources.c mandatory/utils.c mandatory/load_components.c \
 mandatory/moves_counter.c mandatory/check_coins.c mandatory/sprites.c mandatory/frames_manager.c mandatory/textures_paths.c
 
 BONUS_FILES := bonus/so_long_bonus.c bonus/read_map_bonus.c bonus/map_handler_bonus.c bonus/comp_checker_bonus.c \
-bonus/is_walled_bonus.c bonus/player_manager_bonus.c bonus/direction_bonus.c bonus/load_img_texture_bonus.c bonus/map_loader_bonus.c \
+bonus/is_walled_bonus.c bonus/player_manager_bonus.c bonus/load_img_texture_bonus.c bonus/map_loader_bonus.c \
 bonus/get_starting_pos_bonus.c bonus/check_collision_bonus.c bonus/update_game_bonus.c bonus/handle_input_bonus.c bonus/render_game_bonus.c \
 bonus/handle_error_bonus.c bonus/can_reach_all_bonus.c bonus/clean_resources_bonus.c bonus/utils_bonus.c bonus/load_components_bonus.c \
 bonus/moves_counter_bonus.c bonus/check_coins_bonus.c bonus/sprites_bonus.c bonus/frames_manager_bonus.c bonus/textures_paths_bonus.c \
@@ -60,7 +60,7 @@ $(NAME): $(MAIN_OBJS) $(LIBS)
 $(BONUS_NAME): $(BONUS_OBJS) $(LIBS) 
 	$(CC) $(CFLAGS) $(MLX_FLAGS) $(BONUS_OBJS) $(LIBS) $(MLX_LIBS) $(MLX_HEADERS) -o $@
 
-%.o: %.c
+%.o: %.c mandatory/so_long.h bonus/so_long_bonus.h
 	$(CC) $(CFLAGS) -c $< -o $@ $(MLX_HEADERS)
 
 clean:

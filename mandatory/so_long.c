@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 13:26:38 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:44 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:16:38 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	main(int ac, char *av[])
 	event = render_game(mlx, map);
 	if (!event)
 		mlx_close_window(mlx);
-	mlx_loop_hook(mlx, on_direction_change, event);
 	mlx_loop_hook(mlx, handle_input, event);
 	mlx_loop_hook(mlx, update_game, event);
 	mlx_loop(mlx);

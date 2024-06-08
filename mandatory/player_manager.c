@@ -6,7 +6,7 @@
 /*   By: helarras <helarras@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/23 13:23:16 by helarras          #+#    #+#             */
-/*   Updated: 2024/06/04 14:09:35 by helarras         ###   ########.fr       */
+/*   Updated: 2024/06/05 13:11:09 by helarras         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ t_player	*load_player(mlx_t *mlx, t_point start_pos)
 	player->direction = 0;
 	player->moves = (t_moves){0};
 	player->current_frame = 0;
-	player->frame_delay = 0;
 	return (player);
 }
 
